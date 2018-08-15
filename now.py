@@ -38,8 +38,9 @@ import requests
 import base64
 import json
 import re
-import configparser
+#import configparser
 import time
+from six.moves import configparser
 from cookielib import LWPCookieJar
 
 
@@ -183,13 +184,13 @@ class NowInventory(object):
 
     def generate(self):
 
-        table = 'cmdb_ci_server'
-        # table = 'cmdb_ci_linux_server'
+        # table = 'cmdb_ci_server'
+        table = 'cmdb_ci_linux_server'
         base_fields = [
-            u'name', u'host_name', u'fqdn', u'ip_address', u'sys_class_name'
+            u'host_name', u'ip_address'
         ]
         base_groups = [u'sys_class_name']
-        options = "?sysparm_exclude_reference_link=true&sysparm_display_value=true"
+        options = "?sysparm_exclude_reference_link=true&sysparm_display_value=true&sysparm_query=u_server_mgmt_type!=Campus Routers^operational_status=5^ORoperational_status=7^ORoperational_status=11"
 
         columns = list(
             set(base_fields + base_groups + self.fields + self.groups))
@@ -203,9 +204,8 @@ class NowInventory(object):
 
         for record in content['result']:
             ''' Ansible host target selection order:
-                        1. ip_address
-                        2. fqdn
-                        3. host_name
+                        1. host_name
+                        2. ip_address
 
                         '''
             target = None
@@ -213,7 +213,7 @@ class NowInventory(object):
             selection = self.selection
 
             if not selection:
-                selection = ['host_name', 'fqdn', 'ip_address']
+                selection = ['host_name', 'ip_address']
             for k in selection:
                 if record[k] != '':
                     target = record[k]
@@ -238,9 +238,9 @@ class NowInventory(object):
 
 def main(args):
 
-    # instance = os.environ['SN_INSTANCE']
-    # username = os.environ['SN_USERNAME']
-    # password = os.environ['SN_PASSWORD']
+    instance = os.environ['SN_INSTANCE']
+    username = os.environ['SN_USERNAME']
+    password = os.environ['SN_PASSWORD']
     global config
     config = configparser.SafeConfigParser()
 
@@ -316,3 +316,15 @@ def main(args):
 
 if __name__ == "__main__":
     main(sys.argv)
+
+
+
+
+# line 193 decides what groups are exluded ysparm_query=u_server_mgmt_type!=Campus Hosted^operational_status=5^ORoperational_status=7^ORoperational_status=11
+# ^ is how you would say "and" ie.. Campus Routers^operational_status=5
+# != this saying exclude these SN_GROUPS
+# line 188 is where you specify the table ie..  table = 'cmdb_ci_linux_server'
+#
+
+
+    
