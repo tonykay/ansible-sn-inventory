@@ -19,4 +19,67 @@ Custome Credential:
 # created custom credential type with 3 feilds
 # SN_USERNAME
 # SN_PASSWORD
-# SN_URL
+# SN_INSTANCE
+
+
+
+input config
+YAML
+```
+fields:
+  - type: string
+    id: username
+    label: SN_USERNAME
+  - secret: true
+    type: string
+    id: password
+    label: SN_PASSWORD
+  - type: string
+    id: instance
+    label: SN_INSTANCE
+ ```
+ JSON
+ ```
+ {
+ "fields": [
+  {
+   "type": "string",
+   "id": "username",
+   "label": "SN_USERNAME"
+  },
+  {
+   "secret": true,
+   "type": "string",
+   "id": "password",
+   "label": "SN_PASSWORD"
+  },
+  {
+   "type": "string",
+   "id": "instance",
+   "label": "SN_INSTANCE"
+  }
+ ]
+}
+```
+
+
+ 
+ injector config
+ 
+ YAML
+ ```
+ env:
+  SN_INSTANCE: '{{instance}}'
+  SN_PASSWORD: '{{password}}'
+  SN_USERNAME: '{{username}}'
+```
+JSON
+```
+{
+ "env": {
+  "SN_INSTANCE": "{{instance}}",
+  "SN_PASSWORD": "{{password}}",
+  "SN_USERNAME": "{{username}}"
+ }
+}
+```
