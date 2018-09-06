@@ -8,8 +8,11 @@ SN_PROXY: https://webproxy.foo.net:3128/
 ```
 
  SN_Feilds are the host vars you want the script to bring into Tower
+ 
  SN_Groups defines your inventory groups based off host var returned
+ 
  SN_SEL_ORDER defines how to list the hosts in Tower
+ 
  SN_PROXY allows you to add your proxy
 
 
