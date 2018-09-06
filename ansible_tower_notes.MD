@@ -21,6 +21,7 @@ SN_PROXY: https://webproxy.foo.net:3128/
 
 
 input config
+
 YAML
 ```
 fields:
