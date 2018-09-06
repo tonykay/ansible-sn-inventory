@@ -1,4 +1,13 @@
 
+# Dependancies
+
+```
+$ source /var/lib/awx/venv/ansible/bin/activate
+$ umask 0022
+$ pip install requests
+```
+
+
 # EXTRA VARS:
 ```
 SN_GROUPS: "os,managed_by,u_server_mgmt_type,operational_status"
