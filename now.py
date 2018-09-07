@@ -190,7 +190,7 @@ class NowInventory(object):
             u'host_name', u'ip_address'
         ]
         base_groups = [u'sys_class_name']
-        options = "?sysparm_exclude_reference_link=true&sysparm_display_value=true"
+        options = "?sysparm_exclude_reference_link=true&sysparm_display_value=true"#&sysparm_query=u_server_mgmt_type!=Campus Routers^operational_status=5^ORoperational_status=7^ORoperational_status=11"
 
         columns = list(
             set(base_fields + base_groups + self.fields + self.groups))
