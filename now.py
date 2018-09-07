@@ -194,7 +194,7 @@ class NowInventory(object):
 
         columns = list(
             set(base_fields + base_groups + self.fields + self.groups))
-        path = '/api/now/table/' + table 
+        path = '/api/now/table/' + table #+ options + "&sysparm_fields=" + ','.join(columns)
         
         # Default, mandatory group 'sys_class_name'
         groups = list(set(base_groups + self.groups))
