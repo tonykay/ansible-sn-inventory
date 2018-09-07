@@ -189,18 +189,18 @@ class NowInventory(object):
         base_fields = [
             u'host_name', u'ip_address'
         ]
-        base_groups = [u'sys_class_name']
+        base_groups = [u'sys_class_name',]
         options = "?sysparm_exclude_reference_link=true&sysparm_display_value=true"#&sysparm_query=u_server_mgmt_type!=Campus Routers^operational_status=5^ORoperational_status=7^ORoperational_status=11"
 
         columns = list(
             set(base_fields + base_groups + self.fields + self.groups))
         path = '/api/now/table/' + table #+ options + "&sysparm_fields=" + ','.join(columns)
-        
+
         # Default, mandatory group 'sys_class_name'
         groups = list(set(base_groups + self.groups))
 
         content = self._invoke('GET', path, None)
-
+        
         for record in content['result']:
             ''' Ansible host target selection order:
                         1. host_name
@@ -210,9 +210,9 @@ class NowInventory(object):
             target = None
 
             selection = self.selection
-
+            
             if not selection:
-                selection = ['host_name', 'ip_address']
+                selection = ['ip_address','host_name']
             for k in selection:
                 if record[k] != '':
                     target = record[k]
@@ -228,7 +228,7 @@ class NowInventory(object):
             # groups
             for k in groups:
                 self.add_group(target, record[k])
-
+        
         return
 
     def json(self):
